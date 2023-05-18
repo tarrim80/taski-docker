@@ -5,7 +5,7 @@ from django.test import Client, TestCase
 
 
 class TaskiAPITestCase(TestCase):
-    def setUp(self) -> None:
+    def setUp(self):
         self.guest_client = Client()
 
     def test_list_exists(self):
@@ -16,6 +16,6 @@ class TaskiAPITestCase(TestCase):
     def test_task_creation(self):
         """Проверка создания задачи."""
         data = {'title': 'Test', 'description': 'Test'}
-        response = self.guest_client.post('/api/tasks', data=data)
+        response = self.guest_client.post('/api/tasks/', data=data)
         self.assertEqual(response.status_code, HTTPStatus.CREATED)
         self.assertTrue(models.Task.objects.filter(title='Test').exists())
